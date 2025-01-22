@@ -72,27 +72,28 @@ export default function Todo() {
         setTodos(filtered);
     }
 
-    
+
     return (
         <>
-            <div className="bg-gray-900 min-h-screen flex items-center justify-center">
-                <div className="w-full max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-6">
-                    <h1 className="text-3xl text-center text-yellow-400 mb-3">Task List</h1>
+            <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
+                <div className="w-full max-w-lg sm:max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6">
+                    <h1 className="text-2xl sm:text-3xl text-center text-yellow-400 mb-3">Task List</h1>
+
                     <div className="flex items-center justify-center mb-6">
                         <Logo />
                     </div>
 
-                    <div className="flex space-x-3">
+                    <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-3">
                         <div className="relative w-full">
                             <input
-                                type="text" name="search"
+                                type="text" name="search" placeholder="Search a task"
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
-                                placeholder="Search a task"
-                                style={{ textAlign: 'center' }}
+                                className="w-full p-3 sm:p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
                             />
-                            <div className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-cyan-400 rounded-full p-3 shadow-lg"
-                                onClick={handleSearch}>
+                            <div
+                                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-cyan-400 rounded-full p-3 shadow-lg cursor-pointer"
+                                onClick={handleSearch}
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-4 w-4"
@@ -112,15 +113,13 @@ export default function Todo() {
                         <form className="relative w-full"
                             action={handleFormSubmit}>
                             <input
-                                type="text" name="title"
-                                className="w-full p-4 pr-9 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
-                                placeholder="Add a new task"
-                                style={{ textAlign: 'center' }}
-                                required
+                                type="text" name="title" placeholder="Add a new task" required
+                                className="w-full p-3 sm:p-4 pr-9 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
                             />
                             <button
                                 type="submit"
-                                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-emerald-400 rounded-full p-3 shadow-lg h-10 w-20 flex items-center justify-center">
+                                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-emerald-400 rounded-full p-3 shadow-lg h-10 w-20 flex items-center justify-center"
+                            >
                                 Create
                             </button>
                         </form>
@@ -134,26 +133,23 @@ export default function Todo() {
                                         <div className="w-full" onDoubleClick={() => turnOnEditingMode(todo)}>
                                             <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">{index += 1}</span>
                                             <span className="text-white cursor-pointer mx-3">
-                                                {todo.title.length > 60
-                                                    ? todo.title.slice(0, 60) + "..."
+                                                {todo.title.length > 25
+                                                    ? todo.title.slice(0, 25) + "..."
                                                     : todo.title}
                                             </span>
                                         </div>
-                                        <button
+                                        <button onClick={() => dispatch(removeTodo(todo.id))}
                                             className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm"
-                                            onClick={() => dispatch(removeTodo(todo.id))}
                                         >
                                             Remove
                                         </button>
                                     </li>
                                 ) : (
                                     <input
-                                        type="text" value={todoText}
+                                        type="text" value={todoText} autoFocus required
                                         onChange={(e) => setTodoText(e.target.value)}
                                         onBlur={() => handleEditing(todo.id)}
                                         className="w-full p-3 mt-6 rounded-full focus:outline-none shadow-lg bg-slate-700 text-white"
-                                        style={{ textAlign: 'center' }}
-                                        autoFocus required
                                     />
                                 )}
                             </Fragment>
