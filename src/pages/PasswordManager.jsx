@@ -1,10 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import CheckBox from '../components/Checkbox'
 import Logo from '../components/Logo'
 import RangeSlider from '../components/RangeSlider'
 import { nanoid } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchPasswords } from '../modules/password'
+import { savePassword } from '../modules/password'
+import PasswordSkeleton from '../loaders/PasswordSkeleton'
 
 export default function PasswordManager() {
+
+    const { passwords, loading } = useSelector((state) => state.password);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchPasswords());
+    }, [dispatch]);
+
 
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
@@ -32,7 +44,7 @@ export default function PasswordManager() {
             site: form.get('site'),
             pass: password,
         }
-        console.log(data);
+        dispatch(savePassword(data));
     }
 
     return (
@@ -112,15 +124,20 @@ export default function PasswordManager() {
                             </div>
                         </div>
                     </div>
-                    <ul className="space-y-3 mt-6">
-                        <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
-                            <div className="w-full">
-                                <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
-                                <span className="text-white cursor-pointer mx-3">Playstation Network</span>
-                            </div>
-                            <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm">Delete</button>
-                        </li>
+                    <ul className="space-y-2 mt-6">
+                        {passwords.map((pass) =>
+                            <Fragment key={pass.uuid}>
+                                <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
+                                    <div className="w-full">
+                                        <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
+                                        <span className="text-white cursor-pointer mx-3">{pass.site}</span>
+                                    </div>
+                                    <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm">Delete</button>
+                                </li>
+                            </Fragment>
+                        )}
                     </ul>
+                    {loading && <PasswordSkeleton />}
                 </div>
             </div>
         </>
