@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import Logo from './Logo'
+import Logo from '../components/Logo'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo, removeTodo, editTodo } from '../modules/todo/reducers'
+import { addTodo, removeTodo, editTodo } from '../modules/todo'
 
-export default function Todo() {
+export default function TodoList() {
 
     const tasks = useSelector((state) => state.todo.tasks)
     const dispatch = useDispatch()
@@ -77,7 +77,7 @@ export default function Todo() {
         <>
             <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
                 <div className="w-full max-w-lg sm:max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6">
-                    <h1 className="text-2xl sm:text-3xl text-center text-yellow-400 mb-3">Task List</h1>
+                    <h1 className="text-2xl sm:text-3xl text-center text-yellow-400 mb-3">Todo List</h1>
 
                     <div className="flex items-center justify-center mb-6">
                         <Logo />

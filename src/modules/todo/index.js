@@ -1,7 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit"
-import addTodoHandler from "../slices/addTodo"
-import removeTodoHandler from "../slices/removeTodo"
-import editTodoHandler from "../slices/editTodo"
+import addTodoHandler from './slices/addTodo'
+import removeTodoHandler from './slices/removeTodo'
+import editTodoHandler from './slices/editTodo'
 
 const initialState = {
     tasks: [{
