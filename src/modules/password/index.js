@@ -6,7 +6,8 @@ import editPasswordHandler from './slices/editPassword'
 export const fetchPasswords = createAsyncThunk('fetchPasswords', async () => {
     return new Promise((resolve) => {
         setTimeout(async () => {
-            const response = await fetch('database.json');
+            const url = `${import.meta.env.VITE_API_URL}`;
+            const response = await fetch(`${url}/passwords`);
             const data = await response.json();
             resolve(data);
         }, 600);
