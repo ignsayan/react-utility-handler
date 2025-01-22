@@ -5,7 +5,7 @@ export default function RangeSlider({ range, toggle, selfClass }) {
         <>
             <input
                 type="range" 
-                min="8" max="20"
+                min="8" max="25"
                 value={range}
                 onChange={toggle}
                 className={selfClass}

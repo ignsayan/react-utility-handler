@@ -116,9 +116,9 @@ export default function PasswordManager() {
                         <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
                             <div className="w-full">
                                 <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
-                                <span className="text-white cursor-pointer mx-3">asdsadasd</span>
+                                <span className="text-white cursor-pointer mx-3">Playstation Network</span>
                             </div>
-                            <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm">Remove</button>
+                            <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm">Delete</button>
                         </li>
                     </ul>
                 </div>
