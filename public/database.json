@@ -1,17 +1,14 @@
 [
     {
         "uuid": "E98iRYJShpl4SfPNEkcCY",
-        "site": "Playstation Network",
-        "pass": "password"
+        "site": "Playstation Network"
     },
     {
         "uuid": "LUlj7n3K6LVKl1lqTcuXQ",
-        "site": "Nvidia GeForce Experience",
-        "pass": "password"
+        "site": "Nvidia GeForce Experience"
     },
     {
         "uuid": "5YOhcboTlEATcOOGArr55",
-        "site": "Google Account",
-        "pass": "password"
+        "site": "Google Account"
     }
 ]

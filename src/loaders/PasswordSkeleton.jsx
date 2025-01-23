@@ -13,7 +13,7 @@ export default function PasswordSkeleton() {
                         key={index}>
                         <div className="w-full flex items-center space-x-3">
                             <div className="bg-amber-500 h-8 w-8 rounded-full"></div>
-                            <div className="bg-gray-600 h-4 w-2/3 rounded-md"></div>
+                            <div className="bg-gray-600 h-4 w-2/3 rounded-full"></div>
                         </div>
                         <div className="bg-rose-600 h-8 w-20 rounded-full"></div>
                     </li>
