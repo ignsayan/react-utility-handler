@@ -52,6 +52,7 @@ export default function PasswordManager() {
 
     return (
         <>
+
             <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
                 <div className="w-full max-w-lg sm:max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6">
                     <h1 className="text-2xl sm:text-3xl text-center text-yellow-400 mb-3">Password Manager</h1>
@@ -127,25 +128,27 @@ export default function PasswordManager() {
                             </div>
                         </div>
                     </div>
-                    <ul className="space-y-2 mt-6">
-                        {passwords.map((password) =>
-                            <Fragment key={password._id}>
-                                <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
-                                    <div className="w-full">
-                                        <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
-                                        <span className="text-white cursor-pointer mx-3">{password.account}</span>
-                                    </div>
-                                    <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm"
-                                        onClick={() => {
-                                            if (confirm(`Are you sure you want to delete the password for ${password.account}?`)) {
-                                                dispatch(deletePassword(password._id));
-                                            }
-                                        }}>Delete</button>
-                                </li>
-                            </Fragment>
-                        )}
-                    </ul>
-                    {loading && <PasswordSkeleton />}
+
+                    {loading ? <PasswordSkeleton />
+                        : <ul className="space-y-2 mt-6">
+                            {passwords.map((password) =>
+                                <Fragment key={password._id}>
+                                    <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
+                                        <div className="w-full">
+                                            <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
+                                            <span className="text-white cursor-pointer mx-3">{password.account}</span>
+                                        </div>
+                                        <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm"
+                                            onClick={() => {
+                                                if (confirm(`Are you sure you want to delete the password for ${password.account}?`)) {
+                                                    dispatch(deletePassword(password._id));
+                                                }
+                                            }}>Delete</button>
+                                    </li>
+                                </Fragment>
+                            )}
+                        </ul>
+                    }
                 </div>
             </div>
         </>
