@@ -1,12 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import CheckBox from '../components/Checkbox'
-import Logo from '../components/Logo'
-import RangeSlider from '../components/RangeSlider'
 import { nanoid } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchPasswords } from '../modules/password'
-import { savePassword } from '../modules/password'
-import PasswordSkeleton from '../loaders/PasswordSkeleton'
+import {
+    Logo,
+    PasswordSkeleton,
+    RangeSlider,
+    CheckBox,
+} from '../components/index'
+import {
+    fetchPasswords,
+    savePassword,
+    deletePassword,
+} from "../modules/password/slices/index"
 
 export default function PasswordManager() {
 
@@ -132,7 +137,12 @@ export default function PasswordManager() {
                                         <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
                                         <span className="text-white cursor-pointer mx-3">{pass.site}</span>
                                     </div>
-                                    <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm">Delete</button>
+                                    <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm"
+                                        onClick={() => {
+                                            if (confirm(`Are you sure you want to delete the password for ${pass.site}?`)) {
+                                                dispatch(deletePassword(pass.uuid));
+                                            }
+                                        }}>Delete</button>
                                 </li>
                             </Fragment>
                         )}
