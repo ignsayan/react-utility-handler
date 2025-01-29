@@ -33,6 +33,9 @@ export const passwordSlice = createSlice({
                 state.passwords.push(action.payload);
             })
             // Delete Password
+            .addCase(deletePassword.pending, (state) => {
+                state.loading = true;
+            })
             .addCase(deletePassword.fulfilled, (state, action) => {
                 state.passwords = state.passwords.filter(
                     (password) => password._id !== action.payload._id
