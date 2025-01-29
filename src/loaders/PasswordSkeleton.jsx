@@ -7,7 +7,7 @@ export default function PasswordSkeleton() {
 
                 {/* <span className="text-white p-2">Fetching passwords ... </span> */}
 
-                {Array.from({ length: 3 }).map((_, index) => (
+                {Array.from({ length: 1 }).map((_, index) => (
 
                     <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600 animate-pulse"
                         key={index}>

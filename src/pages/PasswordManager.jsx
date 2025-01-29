@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { nanoid } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     Logo,
@@ -45,9 +44,8 @@ export default function PasswordManager() {
 
     const handleFormSubmit = (form) => {
         const data = {
-            uuid: nanoid(),
-            site: form.get('site'),
-            pass: password,
+            account: form.get('account'),
+            key: password,
         }
         dispatch(savePassword(data));
     }
@@ -62,8 +60,8 @@ export default function PasswordManager() {
                         action={handleFormSubmit}>
                         <div className="relative w-full">
                             <input
-                                type="text" name="site" required
-                                placeholder="Enter site name"
+                                type="text" name="account" required
+                                placeholder="Enter account name"
                                 className="w-full p-3 sm:p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
                             />
                             <div
@@ -130,17 +128,17 @@ export default function PasswordManager() {
                         </div>
                     </div>
                     <ul className="space-y-2 mt-6">
-                        {passwords.map((pass) =>
-                            <Fragment key={pass.uuid}>
+                        {passwords.map((password) =>
+                            <Fragment key={password._id}>
                                 <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
                                     <div className="w-full">
                                         <span className="bg-amber-500 px-4 py-2 rounded-full font-medium shadow-lg">1</span>
-                                        <span className="text-white cursor-pointer mx-3">{pass.site}</span>
+                                        <span className="text-white cursor-pointer mx-3">{password.account}</span>
                                     </div>
                                     <button className="bg-rose-600 font-medium px-4 py-2 rounded-full hover:text-white shadow-lg text-sm"
                                         onClick={() => {
-                                            if (confirm(`Are you sure you want to delete the password for ${pass.site}?`)) {
-                                                dispatch(deletePassword(pass.uuid));
+                                            if (confirm(`Are you sure you want to delete the password for ${password.account}?`)) {
+                                                dispatch(deletePassword(password._id));
                                             }
                                         }}>Delete</button>
                                 </li>

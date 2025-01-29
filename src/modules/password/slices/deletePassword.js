@@ -3,8 +3,8 @@ import axios from "axios";
 
 export const deletePassword = createAsyncThunk(
     'deletePassword',
-    async (uuid) => {
-        const endpoint = `${import.meta.env.VITE_API_URL}/passwords/delete/${uuid}`;
+    async (id) => {
+        const endpoint = `${import.meta.env.VITE_API_URL}/passwords/delete/${id}`;
         const response = await axios.delete(endpoint);
         return response.data;
     }

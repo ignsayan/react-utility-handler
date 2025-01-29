@@ -16,6 +16,7 @@ export const passwordSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            // Fetch Passwords
             .addCase(fetchPasswords.pending, (state) => {
                 state.loading = true;
             })
@@ -23,11 +24,19 @@ export const passwordSlice = createSlice({
                 state.loading = false;
                 state.passwords = action.payload;
             })
-            .addCase(savePassword.fulfilled, (state, action) => {
-                state.passwords = action.payload;
+            // Save Password
+            .addCase(savePassword.pending, (state) => {
+                state.loading = true;
             })
+            .addCase(savePassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.passwords.push(action.payload);
+            })
+            // Delete Password
             .addCase(deletePassword.fulfilled, (state, action) => {
-                state.passwords = action.payload;
+                state.passwords = state.passwords.filter(
+                    (password) => password._id !== action.payload._id
+                )
             });
     },
 });
