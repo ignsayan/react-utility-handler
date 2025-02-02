@@ -22,7 +22,7 @@ export default function GoogleAuth({ prefix }) {
             let user = google.user;
 
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
-                uid: user.uid,
+                firebase_uid: user.uid,
                 name: user.displayName,
                 email: user.email,
             });

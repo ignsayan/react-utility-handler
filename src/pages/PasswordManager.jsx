@@ -22,8 +22,8 @@ export default function PasswordManager() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user) dispatch(fetchPasswords(user));
-    }, [dispatch]);
+        if (user) dispatch(fetchPasswords());
+    }, [user])
 
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);

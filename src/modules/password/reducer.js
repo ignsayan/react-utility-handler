@@ -16,6 +16,7 @@ export const passwordSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            // Fetch Passwords
             .addCase(fetchPasswords.fulfilled, (state, action) => {
                 state.loading = false;
                 state.passwords = action.payload
