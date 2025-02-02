@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import todoReducer from '../modules/todo'
-import passwordReducer from '../modules/password'
+import passwordReducer from '../modules/password/reducers'
 
 export const store = configureStore({
     reducer: {
         password: passwordReducer,
-        // todo: todoReducer,
     },
 })
 

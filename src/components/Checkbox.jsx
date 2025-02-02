@@ -1,12 +1,12 @@
 import React from 'react'
 
-export default function CheckBox({ selfClass, labelClass, value, toggle, label }) {
+export default function CheckBox({ style, labelClass, value, toggle, label }) {
 
     return (
         <>
             <input
                 type="checkbox"
-                className={selfClass}
+                className={style}
                 defaultChecked={value}
                 onChange={toggle}
             />

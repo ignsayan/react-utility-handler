@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function RangeSlider({ range, toggle, selfClass }) {
+export default function RangeSlider({ range, toggle, style }) {
     return (
         <>
             <input
@@ -8,7 +8,7 @@ export default function RangeSlider({ range, toggle, selfClass }) {
                 min="8" max="25"
                 value={range}
                 onChange={toggle}
-                className={selfClass}
+                className={style}
             />
         </>
     )
