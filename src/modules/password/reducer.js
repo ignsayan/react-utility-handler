@@ -17,6 +17,9 @@ export const passwordSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // Fetch Passwords
+            .addCase(fetchPasswords.pending, (state) => {
+                state.loading = true;
+            })
             .addCase(fetchPasswords.fulfilled, (state, action) => {
                 state.loading = false;
                 state.passwords = action.payload
