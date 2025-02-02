@@ -1,5 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../modules/authentication/reducer';
+import GoogleAuth from '../components/GoogleAuth';
+
 import {
     Logo,
     PasswordSkeleton,
@@ -11,17 +14,16 @@ import {
     savePassword,
     deletePassword,
 } from "../modules/password/slices/index"
-import GoogleAuth from '../components/GoogleAuth';
 
 export default function PasswordManager() {
 
+    const { user } = useSelector((state) => state.authentication);
     const { passwords, loading } = useSelector((state) => state.password);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchPasswords());
+        if (user) dispatch(fetchPasswords(user));
     }, [dispatch]);
-
 
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
@@ -30,6 +32,7 @@ export default function PasswordManager() {
 
     let tempPass = '';
     let string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
     if (isAllowedCharacter) string += '!@#$%^&*(){}[]';
     if (isAllowedNumber) string += '0123456789';
 
@@ -41,17 +44,15 @@ export default function PasswordManager() {
     }
     useEffect(() => { generatePassword() },
         [length, isAllowedCharacter, isAllowedNumber]
-    );
-
+    )
     const handleFormSubmit = (form) => {
         const data = {
             account: form.get('account'),
             key: password,
+            user_id: user,
         }
         dispatch(savePassword(data));
     }
-
-    const user = localStorage.getItem('user');
 
     return (
         <>

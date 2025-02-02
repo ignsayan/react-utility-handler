@@ -16,13 +16,9 @@ export const passwordSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Fetch Passwords
-            .addCase(fetchPasswords.pending, (state) => {
-                state.loading = true;
-            })
             .addCase(fetchPasswords.fulfilled, (state, action) => {
                 state.loading = false;
-                state.passwords = action.payload;
+                state.passwords = action.payload
             })
             // Save Password
             .addCase(savePassword.pending, (state) => {
@@ -30,7 +26,7 @@ export const passwordSlice = createSlice({
             })
             .addCase(savePassword.fulfilled, (state, action) => {
                 state.loading = false;
-                state.passwords.push(action.payload);
+                state.passwords.push(action.payload)
             })
             // Delete Password
             .addCase(deletePassword.pending, (state) => {

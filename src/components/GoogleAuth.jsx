@@ -1,5 +1,7 @@
 import React from 'react'
 import { app } from '../configs/firebase';
+import { useDispatch } from 'react-redux';
+import { login } from '../modules/authentication/reducer';
 import axios from 'axios';
 import {
     GoogleAuthProvider,
@@ -12,19 +14,24 @@ export default function GoogleAuth({ prefix }) {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    const handleGoogleAuthentication = () => {
-        signInWithPopup(auth, provider)
-            .then((result) => {
+    const dispatch = useDispatch();
 
-                // const credential = GoogleAuthProvider.credentialFromResult(result);
-                axios.post(`${import.meta.env.VITE_API_URL}/users`, {
-                    uid: result.user.uid,
-                    name: result.user.displayName,
-                    email: result.user.email,
-                })
-                    .then((response) => localStorage.setItem('user', true))
-            })
-            .catch((error) => console.log(error));
+    const handleGoogleAuthentication = async () => {
+        try {
+            const google = await signInWithPopup(auth, provider);
+            let user = google.user;
+
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+                uid: user.uid,
+                name: user.displayName,
+                email: user.email,
+            });
+            user = await response.data
+            dispatch(login(user));
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
