@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../modules/authentication/reducer';
 import GoogleAuth from '../components/GoogleAuth';
-
+import useEncrypt from '../hooks/useEncrypt';
 import {
     Logo,
     PasswordSkeleton,
@@ -23,7 +23,7 @@ export default function PasswordManager() {
 
     useEffect(() => {
         if (user) dispatch(fetchPasswords());
-    }, [user])
+    }, [user, dispatch]);
 
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
@@ -48,7 +48,7 @@ export default function PasswordManager() {
     const handleFormSubmit = (form) => {
         const data = {
             account: form.get('account'),
-            key: password,
+            password: useEncrypt(password),
             user_id: user,
         }
         dispatch(savePassword(data));
