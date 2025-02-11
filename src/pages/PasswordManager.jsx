@@ -71,7 +71,7 @@ export default function PasswordManager() {
                                     <input
                                         type="text" name="account" required
                                         placeholder="Enter account name"
-                                        className="w-full p-3 sm:p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
+                                        className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
                                     />
                                     <div
                                         className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-cyan-400 rounded-full p-3 shadow-lg cursor-pointer">
@@ -97,7 +97,7 @@ export default function PasswordManager() {
                                         value={password}
                                         placeholder="Your password"
                                         required readOnly
-                                        className="w-full p-3 sm:p-4 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
+                                        className="w-full p-4 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
                                     />
                                     <button
                                         type="submit"
