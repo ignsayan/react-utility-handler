@@ -74,6 +74,7 @@ export default function PasswordManager() {
                 password.account.toLowerCase().includes(key.toLowerCase())
         );
         setFilteredPasswords(result);
+        setVisibility({});
     }
 
     return (
