@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function ViewIcon() {
+export default function ViewIcon(props) {
     return (
         <>
-            <button className="bg-amber-500 p-2 rounded-full font-medium shadow-lg flex items-center justify-center">
+            <button onClick={props.action}
+                className="bg-amber-500 p-2 rounded-full font-medium shadow-lg flex items-center justify-center">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 text-gray-800"

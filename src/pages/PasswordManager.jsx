@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import GoogleAuth from '../components/GoogleAuth';
-import useEncrypt from '../hooks/useEncrypt';
+import useEncrypt, { useDecrypt } from '../hooks/useEncrypt';
 import {
     fetchPasswords,
     savePassword,
@@ -31,6 +31,8 @@ export default function PasswordManager() {
     const [isAllowedCharacter, setIsAllowedCharacter] = useState(true);
     const [isAllowedNumber, setIsAllowedNumber] = useState(false);
 
+    const [visibility, setVisibility] = useState({});
+
     let tempPass = '';
     let string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
@@ -53,6 +55,10 @@ export default function PasswordManager() {
             user_id: user,
         }
         dispatch(savePassword(data));
+    }
+
+    const toggleVisibility = (id) => {
+        setVisibility((prev) => ({ ...prev, [id]: !prev[id] }));
     }
 
     return (
@@ -128,8 +134,13 @@ export default function PasswordManager() {
                                         <Fragment key={password._id}>
                                             <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
                                                 <div className="w-full flex items-center">
-                                                    <ViewIcon />
-                                                    <span className="text-white cursor-pointer mx-3">{password.account}</span>
+                                                    <ViewIcon action={() => toggleVisibility(password._id)} />
+                                                    <span className="text-white cursor-pointer mx-3">
+                                                        {visibility[password._id]
+                                                            ? useDecrypt(password.password)
+                                                            : password.account
+                                                        }
+                                                    </span>
                                                 </div>
                                                 <TrashIcon data={password} />
                                             </li>
