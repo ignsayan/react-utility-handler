@@ -88,19 +88,19 @@ export default function PasswordManager() {
                             <GoogleAuth prefix="Continue with" />
                         </div>
                         : <Fragment>
-                            <div className="flex w-full space-x-3">
-                                <div className="relative w-1/2">
+                            <div className="flex w-full md:flex-row flex-col md:space-x-3">
+                                <div className="relative w-full md:w-1/2">
                                     <form action={handleSearch}>
                                         <input
                                             type="text" name="account"
                                             placeholder="Enter account name"
-                                            className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
+                                            className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center md:text-left"
                                             ref={account} required
                                         />
                                         <SearchIcon />
                                     </form>
                                 </div>
-                                <div className="relative w-1/2" >
+                                <div className="relative w-full md:w-1/2 mt-4 md:mt-0" >
                                     <form action={handleFormSubmit}>
                                         <input
                                             type="text" name="password"
@@ -111,7 +111,7 @@ export default function PasswordManager() {
                                         />
                                         <button
                                             type="submit"
-                                            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-emerald-400 rounded-full p-3 shadow-lg h-10 w-20 flex items-center justify-center">
+                                            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-emerald-400 rounded-full p-3 shadow-lg h-10 w-20 md:w-auto md:px-6 md:py-2 flex items-center justify-center">
                                             Save
                                         </button>
                                     </form>
