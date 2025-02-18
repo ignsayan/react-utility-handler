@@ -29,7 +29,7 @@ export default function PasswordManager() {
     const [isAllowedNumber, setIsAllowedNumber] = useState(false);
 
     const [visibility, setVisibility] = useState({});
-    const search = useRef(null);
+    const account = useRef(null);
 
     useEffect(() => {
         if (user) dispatch(fetchPasswords());
@@ -54,27 +54,27 @@ export default function PasswordManager() {
     useEffect(() => { generatePassword() },
         [length, isAllowedCharacter, isAllowedNumber]
     )
-    const handleFormSubmit = (form) => {
+    const handleFormSubmit = () => {
         const data = {
-            account: form.get('account'),
+            account: account.current.value,
             password: useEncrypt(password),
             user_id: user,
         }
-        dispatch(savePassword(data));
+        if (data.account !== '') dispatch(savePassword(data));
     }
 
-    const toggleVisibility = (id) => {
-        setVisibility((prev) => ({ ...prev, [id]: !prev[id] }));
-    }
-
-    const handleSearch = () => {
-        const key = search.current.value
+    const handleSearch = (form) => {
+        const key = form.get('account');
         const result = passwords.filter(
             (password) =>
                 password.account.toLowerCase().includes(key.toLowerCase())
         );
         setFilteredPasswords(result);
         setVisibility({});
+    }
+
+    const toggleVisibility = (id) => {
+        setVisibility((prev) => ({ ...prev, [id]: !prev[id] }));
     }
 
     return (
@@ -90,13 +90,15 @@ export default function PasswordManager() {
                         : <Fragment>
                             <div className="flex w-full space-x-3">
                                 <div className="relative w-1/2">
-                                    <input
-                                        type="text" name="account"
-                                        placeholder="Enter account name"
-                                        className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
-                                        ref={search} required
-                                    />
-                                    <SearchIcon action={handleSearch} />
+                                    <form action={handleSearch}>
+                                        <input
+                                            type="text" name="account"
+                                            placeholder="Enter account name"
+                                            className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
+                                            ref={account} required
+                                        />
+                                        <SearchIcon />
+                                    </form>
                                 </div>
                                 <div className="relative w-1/2" >
                                     <form action={handleFormSubmit}>
