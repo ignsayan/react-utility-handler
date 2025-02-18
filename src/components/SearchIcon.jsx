@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function SearchIcon() {
+export default function SearchIcon(props) {
     return (
         <>
-            <button className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-cyan-400 rounded-full p-3 shadow-lg cursor-pointer">
+            <button className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-cyan-400 rounded-full p-3 shadow-lg cursor-pointer"
+                type="button"
+                onClick={props.action}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4"

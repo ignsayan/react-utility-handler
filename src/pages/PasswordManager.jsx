@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import GoogleAuth from '../components/GoogleAuth';
 import useEncrypt, { useDecrypt } from '../hooks/useEncrypt';
@@ -21,10 +21,7 @@ export default function PasswordManager() {
     const { user } = useSelector((state) => state.authentication);
     const { passwords, loading } = useSelector((state) => state.password);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (user) dispatch(fetchPasswords());
-    }, [user, dispatch]);
+    const [filteredPasswords, setFilteredPasswords] = useState([]);
 
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
@@ -32,6 +29,15 @@ export default function PasswordManager() {
     const [isAllowedNumber, setIsAllowedNumber] = useState(false);
 
     const [visibility, setVisibility] = useState({});
+    const search = useRef(null);
+
+    useEffect(() => {
+        if (user) dispatch(fetchPasswords());
+    }, [user, dispatch]);
+
+    useEffect(() => {
+        if (passwords.length > 0) setFilteredPasswords(passwords);
+    }, [passwords]);
 
     let tempPass = '';
     let string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -61,6 +67,15 @@ export default function PasswordManager() {
         setVisibility((prev) => ({ ...prev, [id]: !prev[id] }));
     }
 
+    const handleSearch = () => {
+        const key = search.current.value
+        const result = passwords.filter(
+            (password) =>
+                password.account.toLowerCase().includes(key.toLowerCase())
+        );
+        setFilteredPasswords(result);
+    }
+
     return (
         <>
             <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
@@ -72,31 +87,33 @@ export default function PasswordManager() {
                             <GoogleAuth prefix="Continue with" />
                         </div>
                         : <Fragment>
-                            <form className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-3"
-                                action={handleFormSubmit}>
-                                <div className="relative w-full">
+                            <div className="flex w-full space-x-3">
+                                <div className="relative w-1/2">
                                     <input
-                                        type="text" name="account" required
+                                        type="text" name="account"
                                         placeholder="Enter account name"
                                         className="w-full p-4 pr-8 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white text-center"
+                                        ref={search} required
                                     />
-                                    <SearchIcon />
+                                    <SearchIcon action={handleSearch} />
                                 </div>
-                                <div className="relative w-full">
-                                    <input
-                                        type="text" name="password"
-                                        value={password}
-                                        placeholder="Your password"
-                                        required readOnly
-                                        className="w-full p-4 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-emerald-400 rounded-full p-3 shadow-lg h-10 w-20 flex items-center justify-center">
-                                        Save
-                                    </button>
+                                <div className="relative w-1/2" >
+                                    <form action={handleFormSubmit}>
+                                        <input
+                                            type="text" name="password"
+                                            value={password}
+                                            placeholder="Your password"
+                                            required readOnly
+                                            className="w-full p-4 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
+                                        />
+                                        <button
+                                            type="submit"
+                                            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-emerald-400 rounded-full p-3 shadow-lg h-10 w-20 flex items-center justify-center">
+                                            Save
+                                        </button>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                             <div className="flex flex-col sm:flex-row items-center justify-between sm:space-x-5 pt-5 pl-6 pr-6">
                                 <div className="relative w-full flex items-center">
                                     <label htmlFor="priority" className="text-white mr-4">Stength<span className='mx-2'>({length})</span></label>
@@ -130,7 +147,7 @@ export default function PasswordManager() {
 
                             {loading ? <PasswordSkeleton />
                                 : <ul className="space-y-2 mt-6">
-                                    {passwords.map((password) =>
+                                    {filteredPasswords.map((password) =>
                                         <Fragment key={password._id}>
                                             <li className="flex items-center justify-between bg-gray-700 border border-gray-700 rounded-full shadow-lg p-2 hover:bg-gray-600">
                                                 <div className="w-full flex items-center">
