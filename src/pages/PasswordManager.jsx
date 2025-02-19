@@ -104,10 +104,10 @@ export default function PasswordManager() {
                                     <form action={handleFormSubmit}>
                                         <input
                                             type="text" name="password"
-                                            value={password}
                                             placeholder="Your password"
-                                            required readOnly
                                             className="w-full p-4 rounded-full focus:outline-none shadow-lg bg-gray-900 text-white"
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            value={password} required
                                         />
                                         <button
                                             type="submit"
