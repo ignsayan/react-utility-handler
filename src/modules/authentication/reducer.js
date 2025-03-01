@@ -19,9 +19,6 @@ export const authSlice = createSlice({
             state.user = user
             state.loading = false
         },
-        loginFailuer: (state) => {
-            state.loading = false
-        },
         logout: (state) => {
             Cookies.remove('USER')
             state.user = null
@@ -29,6 +26,6 @@ export const authSlice = createSlice({
     }
 })
 
-export const { initiateLogin, attemptLogin, loginFailuer, logout } = authSlice.actions
+export const { initiateLogin, attemptLogin, logout } = authSlice.actions
 
 export default authSlice.reducer

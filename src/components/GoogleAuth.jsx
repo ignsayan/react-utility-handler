@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     initiateLogin,
     attemptLogin,
-    loginFailuer
 } from '../modules/authentication/reducer';
 import {
     GoogleAuthProvider,
@@ -36,7 +35,6 @@ export default function GoogleAuth({ prefix }) {
 
         } catch (error) {
             console.error(error);
-            dispatch(loginFailuer());
         }
     }
 
